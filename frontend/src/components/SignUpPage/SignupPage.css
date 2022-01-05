@@ -1,0 +1,54 @@
+.sign-Up-dev {
+    display: block;
+    margin-top: 8rem;
+    
+    height: auto;
+    width: auto;
+    background-color:  #B6B8BB;
+    padding-left: 3%;
+    padding-right: 3%;
+    margin-right: 2%;
+    margin-bottom: 35%;
+    
+   
+}
+.bg-color-signUp-left-dev{
+background-color: #B6B8BB;
+
+}
+.bg-color-signUp-right-dev{
+    background-color:  #B6B8BB;
+    
+    }
+    .sigUp-form-left-dev button{
+        width: 90%;
+      height: 3.5rem;
+      margin-left: 5%;
+      margin-right: 10%;
+      font-size: 1.5rem;  
+      color: #c0bfbf; 
+      background-color: white;
+      border-color: white;
+  
+  }
+.sigUp-form-right-dev input{
+    width: 90%;
+    height: 3.5rem;
+    margin-left: 5%;
+    margin-right: 10%;
+    background-color: white;
+    color: #c0bfbf; 
+    text-align: left;
+    margin-bottom: 50px;
+
+}
+
+
+.sigUp-form-right-dev input::placeholder{
+    opacity: 1;
+    color: #c0bfbf; 
+}
+.row .placeholder-style-dev input::placeholder{
+    opacity: 1;
+    color: #c0bfbf; 
+}

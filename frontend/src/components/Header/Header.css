@@ -1,0 +1,15 @@
+.nav-bg-color-dev{
+  background-color: #B6B8BB;
+  position: fixed;
+  top: 0;
+  width: 100%;
+
+     
+}
+.header-navbar-nav-dev{
+  margin-left: 75%;}
+
+
+.header-btn-login-dev, .header-btn-JoinNow-dev{
+  font-size: 1.4rem;
+}
