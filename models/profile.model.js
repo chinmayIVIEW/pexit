@@ -29,8 +29,7 @@ module.exports = (sequelize,DataTypes)=>{
         },
         phone : {
             type: DataTypes.STRING,
-            allowNull : false,
-            unique : true
+            defaultValue: null
         },
         date_of_birth : {
             type: DataTypes.DATE,

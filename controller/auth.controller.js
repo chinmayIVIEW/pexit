@@ -2,7 +2,6 @@ const db =  require('../models/index.model')
 const Profile = db.profile
 
 
-
 const Createuser = async (req,res)=>{
     let data = await Profile.create({user_name:req.body.user_name,display_name:req.body.display_name,
         profession:req.body.profession,professional_role:req.body.professional_role,email_id:req.body.email_id,
@@ -68,15 +67,3 @@ const delete_user = async(req,res)=>{
 
 // social auth controller
 
-const google_signin = (req,res)=>{
-    let token = req.body.token
-    res.cookie('session-token',token)
-    res.send("success")
-}
-
-const google_logout = (req,res)=>{
-    res.clearCookie('session-token')
-    res.redirect('/social/signin')
-}
-
-module.exports = { Signup,Signin,delete_user,google_signin,google_logout }

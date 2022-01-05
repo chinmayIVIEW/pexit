@@ -1,42 +1,40 @@
 const router = require("express").Router()
-const {google_signin,google_logout} = require("../controller/auth.controller")
+const passport = require('passport')
+require('../controller/google.auth')
 
-// Google Auth
-const {OAuth2Client} = require('google-auth-library'); 
-const CLIENT_ID = process.env.CLIENT_ID
-const client = new OAuth2Client(CLIENT_ID);
 
-// googal sign in
-router.get('/signin',(req,res)=>{
-    res.render('login')
-})
-router.post('/signin',google_signin)
-router.get('/logout',google_logout)
 
-function checkAuthentication(req, res,next) {
-    let token = req.cookies['session-token']
-    let user = {}
 
-    async function  verify(){
-        const ticket = await client.verifyIdToken({
-            idToken: token,
-            audience:CLIENT_ID
-        })
-        const payload = ticket.getPayload()
-        user.name = payload.name
-        user.email = payload.email
-        user.picture = payload.picture
-    }
-    verify()
-    .then(()=>{
-        req.user = user
-        next()
-    })
-    .catch(err=>{
-        res.redirect('/social/signin')
-    })
+let isLoggedIn = (req,res,next)=>{
+  if(req.user){
+    next()
+  }else{
+    res.send("unotherized")
+  }
 }
 
 
+// googal sign in
+router.get('/google',passport.authenticate('google', { scope: ['profile','email'] }));
 
-module.exports = {router,checkAuthentication}
+router.get('/google/callback', passport.authenticate('google', { failureRedirect: '/social/failed' }),
+  function(req, res) {
+    // Successful authentication, redirect home.
+    res.redirect('/social/good');
+  });
+
+router.get('/failed',(req,res)=>{
+    res.send("you failed to login")
+})
+router.get('/good',isLoggedIn,(req,res)=>{
+    res.send(`welcome mr. ${req.user.displayName}`)
+})
+
+router.get('/logout',(req,res)=>{
+  req.session = null
+  req.logOut()
+  res.redirect('/')
+})
+
+
+module.exports =  router 
