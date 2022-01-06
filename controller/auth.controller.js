@@ -2,6 +2,9 @@ const db =  require('../models/index.model')
 const Profile = db.profile
 
 
+console.log(Profile);
+
+
 const Createuser = async (req,res)=>{
     let data = await Profile.create({user_name:req.body.user_name,display_name:req.body.display_name,
         profession:req.body.profession,professional_role:req.body.professional_role,email_id:req.body.email_id,
@@ -21,8 +24,13 @@ const Createuser = async (req,res)=>{
 
 
 const Signup = async(req,res)=>{
+    // console.log(req.body.email_id);
+    // let user_info = await Profile.findOne({ where: { email_id :req.body.email_id }})
+    // if (user_info) {
+    //     res.send("user already exist")
+    // }else{
     let data = await Profile.create({display_name:req.body.display_name,user_name:req.body.user_name,
-        password:req.body.password,email_id:req.body.email_id,phone:req.body.phone,country:req.body.country,profession:req.body.profession})
+        password:req.body.password,email_id:req.body.email_id,phone:req.body.phone,country:req.body.country})
     if (data) {
         res.json({
             message: "Sign up success !!!"
@@ -32,6 +40,7 @@ const Signup = async(req,res)=>{
             message: "Oops !! Something went wrong"
         })
     }
+    // }
 }
 
 const Signin = async(req,res)=>{
@@ -65,5 +74,7 @@ const delete_user = async(req,res)=>{
     }
 }
 
-// social auth controller
+
+
+module.exports = {Signup,Signin,delete_user}
 

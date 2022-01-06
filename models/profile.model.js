@@ -45,7 +45,7 @@ module.exports = (sequelize,DataTypes)=>{
         },
         country : {
             type: DataTypes.STRING,
-            allowNull : null
+            defaultValue: null
         },
         state : {
             type: DataTypes.STRING,
@@ -65,7 +65,7 @@ module.exports = (sequelize,DataTypes)=>{
         },
         password : {
             type: DataTypes.STRING,
-            allowNull : false,
+            defaultValue: null,
             unique: true
         }
     },{

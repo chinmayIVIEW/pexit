@@ -9,11 +9,13 @@ passport.serializeUser(function(user, done) {
   done(null,user);
   });
   
-passport.deserializeUser(function(user, done) {
-  done(null,user)
-  // User.findById(id, function(err, user) {
-  //   done(err, user);
+passport.deserializeUser(async function(user, done) {
+  // let data = await Profile.findOne({where:{email_id :Profile.dataValues.email_id}}, function(err, user) {
+  //   if(data === null){
+  //     done(err, user);
+  //   }
   // });
+  done(null,user);
 });
 
 
@@ -22,11 +24,18 @@ passport.use(new GoogleStrategy({
     clientSecret: process.env.CLIENT_SECRET,
     callbackURL: process.env.GOOGLE_APP_CALLBACK_URL
   },
-  function(accessToken, refreshToken, profile, done) {
-    console.log(profile.emails[0].value);
-    return done(null, profile);
-    // Profile.findOrCreate({ googleId: profile.id }, function (err, user) {
-    //   return done(err, user);
-    // });
+  async function(accessToken, refreshToken, profile, done) {
+    let [ user,created ] = await Profile.findOrCreate({
+      where : { user_name : profile.displayName + '_' + 'pexit',
+                email_id : profile.emails[0].value,
+                display_name : profile.displayName }
+    })
+    if(created){
+      done(null,user)
+      console.log(user);
+      console.log("data inserted");
+    }else{
+      done("already present",user)
+    }
   }
 ));

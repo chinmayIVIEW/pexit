@@ -77,5 +77,5 @@ db.profile.hasMany(db.ad_post,{
 })
 
 
-module.exports = db
+module.exports = { db, sequelize}
  
