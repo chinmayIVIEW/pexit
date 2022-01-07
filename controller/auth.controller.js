@@ -1,46 +1,27 @@
 const db =  require('../models/index.model')
 const Profile = db.profile
-
-
-console.log(Profile);
-
-
-const Createuser = async (req,res)=>{
-    let data = await Profile.create({user_name:req.body.user_name,display_name:req.body.display_name,
-        profession:req.body.profession,professional_role:req.body.professional_role,email_id:req.body.email_id,
-        phone:req.body.phone,date_of_birth:req.body.date_of_birth,gender:req.body.gender,address:req.body.address,
-        country:req.body.country,state:req.body.state,location:req.body.location,postal_location:req.body.postal_location,
-        summery:req.body.summery})
-    if(data){
-        res.json({
-            message:"data inserted successfully"
-        })
-    }else{
-        res.json({
-            message:"Something went wrong !!!"
-        })
-    }
-}
+const { sign } = require("jsonwebtoken")
 
 
 const Signup = async(req,res)=>{
-    // console.log(req.body.email_id);
-    // let user_info = await Profile.findOne({ where: { email_id :req.body.email_id }})
-    // if (user_info) {
-    //     res.send("user already exist")
-    // }else{
-    let data = await Profile.create({display_name:req.body.display_name,user_name:req.body.user_name,
-        password:req.body.password,email_id:req.body.email_id,phone:req.body.phone,country:req.body.country})
-    if (data) {
+    let user = await Profile.findOne({ where: { email_id :req.body.email_id }})
+    if (user) {
         res.json({
-            message: "Sign up success !!!"
+            message: "user already exist"
         })
     }else{
-        res.json({
-            message: "Oops !! Something went wrong"
-        })
+        let data = await Profile.create({display_name:req.body.display_name,user_name:req.body.user_name,
+            password:req.body.password,email_id:req.body.email_id,phone:req.body.phone,country:req.body.country})
+        if (data) {
+            res.json({
+                message: "Sign up success !!!"
+            })
+        }else{
+            res.json({
+                message: "Oops !! Something went wrong"
+            })
+        }
     }
-    // }
 }
 
 const Signin = async(req,res)=>{
@@ -51,8 +32,12 @@ const Signin = async(req,res)=>{
         }
     })
     if (data) {
+        const jsontoken = sign({password : req.body.password},process.env.TOKEN_ID,
+            {expiresIn : "1h"}
+        )
         res.json({
-            message: "Sign in success !!!"
+            message: "Sign in success !!!",
+            token : jsontoken
         })
     }else{
         res.json({
@@ -71,10 +56,21 @@ const delete_user = async(req,res)=>{
         res.json({
             message:"User deleted !!!"
         })
+    }else{
+        res.json({
+            message:"Something went wrong"
+        })
     }
 }
 
+const Logout = async(req,res) => {
+    try {
+        res.clearCookie()
+    } catch (error) {
+        res.status(500).send(error)
+    }
+}
+ 
 
-
-module.exports = {Signup,Signin,delete_user}
+module.exports = {Signup,Signin,delete_user,Logout}
 
