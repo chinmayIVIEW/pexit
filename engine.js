@@ -18,9 +18,9 @@ app.use(express.json())
 app.use(cookieparser())
 
 app.use(cookieSession({ 
-    secret: process.env.SECRET_KEY,
-    name : "google-cookie",
-    keys: ['key1', 'key2']
+    name : "social-secret",
+    keys: [process.env.SECRET_KEY],
+    maxAge: 24 * 60 * 60 * 1000
   }));
 app.use(passport.initialize());
 app.use(passport.session());
