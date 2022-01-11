@@ -2,11 +2,12 @@ const express = require("express")
 const app = express()
 require("dotenv").config()
 const port = process.env.PORT || 8000
-const {router} = require('./router/social.signin')
-const basic_router = require('./router/auth.router')
+const {router} = require('./router/social.router')
+const auth_router = require('./router/auth.router')
+const profile_route = require('./router/profile.router')
 const cookieparser = require('cookie-parser')
 const db = require('./models/index.model')
-var cookieSession = require('cookie-session')
+const cookieSession = require('cookie-session')
 const passport = require('passport')
 
 
@@ -27,12 +28,15 @@ app.use(passport.session());
 
 
 // normal route
-app.use('/pexit',basic_router)
-
+app.use('/pexit',auth_router)
 
 
 // Social route
 app.use('/social',router)
+
+
+// usual route
+app.use('/pexit/profile',profile_route)
 
 
 
