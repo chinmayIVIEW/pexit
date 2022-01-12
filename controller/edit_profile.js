@@ -2,6 +2,7 @@ const db =  require('../models/index.model')
 const Profile = db.profile
 const Experience = db.experience
 const Education = db.education
+const Honors = db.awards
 
 
 const edit_profile = async(req,res)=>{
@@ -71,7 +72,8 @@ const edit_education = async(req,res)=>{
     if(profile){
         let user_edu = await Education.create({
             school:req.body.school,date_attended:req.body.date_attended,degree: req.body.degree,mode_of_study:req.body.mode_of_study,
-            field_of_study: req.body.field_of_study,activity_and_societies:req.body.activity_and_societies,description:req.body.description,profile_id:profile.profile_id
+            field_of_study: req.body.field_of_study,activity_and_societies:req.body.activity_and_societies,description:req.body.description,
+            profile_id:profile.profile_id
         })
         if(user_edu){
             res.json({
@@ -95,5 +97,35 @@ const get_education = async(req,res)=>{
     }
 }
 
+const edit_honors = async(req,res)=>{
+    let profile = await Profile.findOne({
+        where:{
+            user_name:req.body.user_name
+        }
+    })
+    if(profile){
+        let honors = await Honors.create({
+            title : req.body.title,date:req.body.date,description: req.body.description,profile_id:profile.profile_id
+        })
+        if(honors){
+            res.status(200).json({
+                message:"Data inserted successfully"
+            })
+        }else{
+            res.status(404)
+        }
+    }
+}
 
-module.exports = {edit_profile,get_profile,edit_experience,get_experience,edit_education,get_education}
+const get_honors = async(req,res)=>{
+    let honors_data = await Honors.findAll()
+    if(honors_data){
+        res.json(honors_data)
+    }else{
+        res.json({
+            message:"no data not found"
+        })
+    }
+}
+
+module.exports = {edit_profile,get_profile,edit_experience,get_experience,edit_education,get_education,edit_honors,get_honors}

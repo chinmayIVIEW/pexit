@@ -1,5 +1,5 @@
 module.exports = (sequelize,DataTypes)=>{
-    const awards = sequelize.define("honors&awards",{
+    const awards = sequelize.define("awards",{
         title : {
             type : DataTypes.STRING,
             defaultValue: null

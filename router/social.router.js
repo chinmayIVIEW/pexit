@@ -56,8 +56,6 @@ router.get('/facebook/callback', passport.authenticate('facebook', {failureRedir
   })
 
 
-
-
 router.get('/failed',(req,res)=>{
   res.send("you failed to login")
 })
