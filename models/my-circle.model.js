@@ -5,7 +5,7 @@ module.exports = (sequelize,DataTypes)=>{
             defaultValue: null
         },
         connection_status : {
-            type : DataTypes.STRING,
+            type : DataTypes.BOOLEAN,
             defaultValue: null
         }
     },{

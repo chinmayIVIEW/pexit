@@ -127,5 +127,5 @@ const get_honors = async(req,res)=>{
         })
     }
 }
-
+ 
 module.exports = {edit_profile,get_profile,edit_experience,get_experience,edit_education,get_education,edit_honors,get_honors}

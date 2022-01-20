@@ -5,6 +5,7 @@ const port = process.env.PORT || 8000
 const {router} = require('./router/social.router')
 const auth_router = require('./router/auth.router')
 const profile_route = require('./router/profile.router')
+const post_route = require('./router/post.router')
 const cookieparser = require('cookie-parser')
 const db = require('./models/index.model')
 const cookieSession = require('cookie-session')
@@ -37,6 +38,8 @@ app.use('/social',router)
 
 // usual route
 app.use('/pexit/profile',profile_route)
+app.use('/pexit/profile',post_route)
+
 
 
 
