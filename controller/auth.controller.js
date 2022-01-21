@@ -6,7 +6,10 @@ const { sign } = require("jsonwebtoken")
 
 const Signup = async(req,res)=>{
     try {
-        let user = await Profile.findOne({ where: { email_id :req.body.email_id }})
+        let user = await Profile.findOne({ 
+            where: { email_id :req.body.email_id,
+                     user_name :req.body.user_name }
+        })
         if (user) {
             res.json({
                 message: "user already exist"

@@ -8,6 +8,7 @@ module.exports = (sequelize,DataTypes)=>{
         },
         user_name : {
             type: DataTypes.STRING,
+            unique : true,
             allowNull : false
         },
         display_name : {
