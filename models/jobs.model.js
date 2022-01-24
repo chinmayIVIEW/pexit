@@ -1,7 +1,7 @@
 module.exports = (sequelize,DataTypes)=>{
     const jobs = sequelize.define("jobs",{
         logo : {
-            type : DataTypes.BLOB,
+            type : DataTypes.STRING,
             defaultValue: null
         },
         job_title : {
