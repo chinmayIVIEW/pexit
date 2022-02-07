@@ -3,7 +3,7 @@ const app = express()
 require("dotenv").config()
 const port = process.env.PORT || 8000
 const path = require("path")
-const {router} = require('./router/social.router')
+const router = require('./router/social.router')
 const auth_router = require('./router/auth.router')
 const profile_route = require('./router/profile.router')
 const post_route = require('./router/post.router')
@@ -13,7 +13,6 @@ const cookieparser = require('cookie-parser')
 const db = require('./models/index.model')
 const cookieSession = require('cookie-session')
 const passport = require('passport')
-const fileupload = require("express-fileupload")
  
 
 // middleware
@@ -27,10 +26,10 @@ app.use(cookieSession({
     keys: [process.env.SECRET_KEY],
     maxAge: 24 * 60 * 60 * 1000
   }));
+  
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')))
-app.use(fileupload())
 
 // normal route
 app.use('/pexit',auth_router)
