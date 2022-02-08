@@ -9,17 +9,20 @@ const profile_route = require('./router/profile.router')
 const post_route = require('./router/post.router')
 const circle_route = require('./router/circle.router')
 const job_route = require('./router/job.router')
+const product_route = require('./controller/product.controller')
 const cookieparser = require('cookie-parser')
 const db = require('./models/index.model')
 const cookieSession = require('cookie-session')
 const passport = require('passport')
- 
+const cors = require("cors")
 
 // middleware
 app.set('view engine', 'hbs')
 app.use(express.urlencoded({extended:true}))
 app.use(express.json())
 app.use(cookieparser())
+app.use(cors())
+
 
 app.use(cookieSession({ 
     name : "social-secret",
@@ -44,6 +47,7 @@ app.use('/pexit/profile',profile_route)
 app.use('/pexit/profile',post_route)
 app.use('/pexit/profile',circle_route)
 app.use('/pexit',job_route)
+app.use('/pexit',product_route)
 
 
 

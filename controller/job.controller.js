@@ -9,7 +9,7 @@ const create_jobs = async (req,res)=>{
             profile_id : req.params.id
         }
     })
-    if(profile && req.file == !undefined){
+    if(profile){
         let job_data = await Jobs.create({
             logo : req.file.filename , job_title : req.body.job_title , company : req.body.company , country:req.body.country , state : req.body.state,
             city : req.body.city , postal_code : req.body.postal_code , job_function : req.body.job_function , employee_type : req.body.employee_type,

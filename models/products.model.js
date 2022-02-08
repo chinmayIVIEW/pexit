@@ -36,10 +36,6 @@ module.exports = (sequelize,DataTypes)=>{
             type : DataTypes.STRING,
             defaultValue: null
         },
-        upload_catalogue : {
-            type : DataTypes.STRING,
-            defaultValue: null
-        },
         company_profile : {
             type : DataTypes.STRING,
             defaultValue: null
