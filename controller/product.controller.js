@@ -1,2 +1,5 @@
 const db =  require('../models/index.model')
 const Profile = db.profile
+const Products = db.products
+
+
