@@ -19,7 +19,7 @@ let upload = multer({ storage: Storage,fileFilter : helpers.imageFilter}).single
 
 
 
-job_router.post('/create-jobs/:id',upload,create_jobs)
+job_router.get('/create-jobs/:id',upload,create_jobs)
 job_router.get('/jobs',view_jobs)
 
 

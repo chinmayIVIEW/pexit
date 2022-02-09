@@ -1,6 +1,6 @@
 module.exports = (sequelize,DataTypes)=>{
     const products = sequelize.define("products",{
-        upload_image_link : {
+        upload_image : {
             type : DataTypes.STRING,
             defaultValue: null
         },
@@ -16,11 +16,11 @@ module.exports = (sequelize,DataTypes)=>{
             type : DataTypes.STRING,
             defaultValue: null
         },
-        product_details_link : {
+        product_details : {
             type : DataTypes.STRING,
             defaultValue: null
         },
-        transaction_history_link : {
+        transaction_history : {
             type : DataTypes.STRING,
             defaultValue: null
         },

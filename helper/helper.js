@@ -1,3 +1,7 @@
+const path = require("path")
+const multer = require('multer');
+
+
 const imageFilter = function(req, file, cb) {
     // Accept images only
     if (!file.originalname.match(/\.(jpg|JPG|jpeg|JPEG|png|PNG|gif|GIF)$/)) {
@@ -17,5 +21,43 @@ const videoFilter = function(req, file, cb) {
     
 }
 
+const fileFilter = (req,file,cb)=>{
+    if(file.fieldname === "upload image"){
+        if(
+            file.mimetype === 'image/png' ||
+            file.mimetype === 'image/jpg' || 
+            file.mimetype === 'image/jpeg'
+        ){
+            cb(null,true)
+        }else{
+            cb(null,false)
+        }
+    }else{
+        if(
+            file.mimetype === 'application/pdf' ||
+            file.mimetype === 'application/msword'
+        ){
+            cb(null,true)
+        }else{
+            cb(null,false)
+        }
+    }
+}
 
-module.exports = {imageFilter,videoFilter};
+
+const Storage = multer.diskStorage({
+    destination: function(req, file, cb) {
+        cb(null, 'public/images/product_images');
+    },
+    filename: function(req, file, cb) {
+        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+    }
+});
+
+let upload = multer({ storage: Storage });
+
+
+
+
+
+module.exports = {fileFilter,upload};
