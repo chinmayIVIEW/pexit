@@ -60,4 +60,4 @@ let upload = multer({ storage: Storage });
 
 
 
-module.exports = {fileFilter,upload};
+module.exports = {Storage};

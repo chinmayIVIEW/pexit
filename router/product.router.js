@@ -1,13 +1,11 @@
 const product_router = require("express").Router()
 const multer = require('multer');
-const {upload} = require('../helper/helper');
+const {Storage} = require('../helper/helper')
 const {add_product} = require('../controller/product.controller')
 
 
 
-
-// let upload = multer({ storage: Storage });
-
+let upload = multer({ storage: Storage });
 
 
 product_router.get('/add-product/:id',upload.fields([{
@@ -21,6 +19,7 @@ product_router.get('/add-product/:id',upload.fields([{
   },{
     name: 'company_Profile',maxCount: 1
   }]),add_product)
+
 
 
 
